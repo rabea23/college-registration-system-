@@ -67,6 +67,15 @@ public class Controller  {
 		view.handleShowLecturersButton(e -> {
 			view.lecturersView(model.regularLecturers.lecturers, model.guestLecturers.lecturers, model.regularLecturers.compareTo(model.guestLecturers), model.regularLecturers.chairperson, model.guestLecturers.chairperson);
 		});
+
+		view.handleAddCommiteesButton(e -> {
+			String commitees[] = (new commiteesInterpreter(view.getCommiteesContent())).parseInput();
+			if (commitees != null) {
+				view.addCommittees(new ArrayList<String>(Arrays.asList(commitees)));
+				view.setMain();
+			}
+		});
+		
 		
 		view.handleLecturersComboButton(e -> {
 			view.setLecturersComboBox(model.getLecturers());
@@ -120,6 +129,27 @@ public class Controller  {
 		});
 		
 	}
+	class commiteesInterpreter {
+		String allCommitees;
+		String commitees[];
+		
+		public commiteesInterpreter(String commitees) {
+			allCommitees = commitees;
+		}
+		
+		public String[] parseInput() {
+			if (allCommitees.equals("") || allCommitees == null)
+				return null;
+			commitees = allCommitees.split(" ");
+			if (commitees.length != 1) 
+				for (int i = 0; i < commitees.length; i++) 
+					commitees[i] = commitees[i].replaceAll(",", "");
+			else 
+				commitees = allCommitees.split(",");
+			return commitees;
+		}
+	}
+
 	
 	
 }
