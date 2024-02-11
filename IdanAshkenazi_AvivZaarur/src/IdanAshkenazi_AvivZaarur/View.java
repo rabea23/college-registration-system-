@@ -112,6 +112,10 @@ public class View {
 		chairpersonComboBox.setOnMousePressed(e);
 	}
 	
+	public void handleAddCommiteesButton(EventHandler<ActionEvent> e) {
+		addCommiteesButton.setOnAction(e);
+	}
+	
 	public void collegeView() {
 		collegeLabel.setTextFill(Color.GREEN);
 		HBox collegeHbox = new HBox(20, collegeLabel, collegeCombo, submitCollegeButton);
@@ -174,6 +178,18 @@ public class View {
 		VBox addLecturer = new VBox(30, lecturerHbox, regularLecturer, committees, guestLecturer, addLecturerButton);
 		
 		addLecturer.setStyle("-fx-padding: 10;" + 
+                "-fx-border-style: solid inside;" + 
+                "-fx-border-width: 2;" +
+                "-fx-border-insets: 5;" + 
+                "-fx-border-radius: 5;" + 
+                "-fx-border-color: black;");
+
+		commiteesNames.setPromptText("enter commitees seperated by ', '");
+		commiteesNames.setPrefWidth(300);
+		HBox addCommitees = new HBox(20, commiteesNames, addCommiteesButton);
+		addCommitees.getSpacing();
+		addCommitees.setPadding(new Insets(50, 0, 0, 0));		
+		addCommitees.setStyle("-fx-padding: 10;" + 
                 "-fx-border-style: solid inside;" + 
                 "-fx-border-width: 2;" +
                 "-fx-border-insets: 5;" + 
@@ -365,6 +381,11 @@ public class View {
 		});
 		return "";
 	}
+
+	public void addCommittees(ArrayList<String> committeesNames) {
+		for (String committeeName : committeesNames)
+			this.committeesCheckBoxs.add(new CheckBox(committeeName));
+	}
 	
 	public String getText(TextField someText) {
 		String name;
@@ -523,5 +544,7 @@ public class View {
 		});
 	}
 	
-
+public String getCommiteesContent() {
+		return commiteesNames.getText();
+	}
 }
